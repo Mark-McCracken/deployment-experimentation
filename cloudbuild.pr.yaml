@@ -1,24 +1,16 @@
 steps:
-  - id: "generate random latency value"
-    name: ubuntu
-    args: ["perl", "-e", "'print int(rand(1500)'", ">", "/random-numbers/latency.dat", "&&", "cat", "/random-numbers/latency.dat"]
-  - id: "generate random color value"
-    name: ubuntu
-    args: ["perl", "-e", "'print rand(1)'", ">", "/random-numbers/randomColorFloat.dat", "&&", "cat", "/random-numbers/randomColorFloat.dat"]
-  - id: "generate random errorrate value"
-    name: ubuntu
-    args: ["perl", "-e", "'print rand(0.45)'", ">", "/random-numbers/errorrate.dat", "&&", "cat", "/random-numbers/errorrate.dat"]
+  - id: "generate random values"
+    name: python
+    entrypoint: python
+    args: ["generate-random-numbers.py"]
   - id: "build image"
-    name: docker
-    args: ["build",
-            "--build-arg=latency=$(cat /random-numbers/latency.dat)",
-            "--build-arg=randomColorFloat=$(cat /random-numbers/randomColorFloat.dat)",
-            "--build-arg=errorrate=$(cat /random-numbers/errorrate.dat)", 
-            "-t", "testing",
-            "."
+    name: gcr.io/cloud-builders/docker
+    entrypoint: sh
+    args: ['-c',
+           'docker build --build-arg=latency="$(cat /random-numbers/latency.dat)" --build-arg=randomColorFloat="$(cat /random-numbers/randomColorFloat.dat)" --build-arg=errorrate="$(cat /random-numbers/errorrate.dat)" -t testing .'
           ]
   - id: "test image"
-    name: docker
+    name: gcr.io/cloud-builders/docker
     args:
     - run
     - testing

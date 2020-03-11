@@ -29,7 +29,7 @@ describe('OnlyController', () => {
         });
 
         it("Should fail sometimes for errors", () => {
-            const attempts = 10;
+            const attempts = 1000;
             let successes = 0;
             let fails = 0;
             for (var i=1; i <= attempts; i++) {
