@@ -10,11 +10,16 @@ steps:
             "--build-arg=latency=$(cat /random-numbers/latency.dat)",
             "--build-arg=randomColorFloat=$(cat /random-numbers/randomColorFloat.dat)",
             "--build-arg=errorrate=$(cat /random-numbers/errorrate.dat)", 
-            "-t", "gcr.io/$PROJECT_ID/deployment-experiment:$SHORT_SHA",
+            "-t", "testing",
             "."
           ]
-images:
-- gcr.io/$PROJECT_ID/deployment-experiment:$SHORT_SHA
+  - name: docker
+    args:
+    - run
+    - testing
+    - npm
+    - run
+    - test
 options:
   volumes:
   - name: "random-numbers"
