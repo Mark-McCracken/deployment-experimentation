@@ -1,6 +1,6 @@
 steps:
   - name: ubuntu
-    args: ["perl", "-e", "'print int(rand(1400)'", ">", "/random-numbers/latency.dat", "&&", "cat", "/random-numbers/latency.dat"]
+    args: ["perl", "-e", "'print int(rand(1500)'", ">", "/random-numbers/latency.dat", "&&", "cat", "/random-numbers/latency.dat"]
   - name: ubuntu
     args: ["perl", "-e", "'print rand(1)'", ">", "/random-numbers/randomColorFloat.dat", "&&", "cat", "/random-numbers/randomColorFloat.dat"]
   - name: ubuntu

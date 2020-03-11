@@ -24,7 +24,7 @@ describe('OnlyController', () => {
             const duration = end - start;
             expect(response).toEqual({"status": "ok"});
             expect(duration).toBeGreaterThan(100);
-            expect(duration).toBeLessThan(2500);
+            expect(duration).toBeLessThan(2600);
             done();
         });
 
