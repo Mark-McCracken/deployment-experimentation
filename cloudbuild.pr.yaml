@@ -4,13 +4,13 @@ steps:
     entrypoint: python
     args: ["generate-random-numbers.py"]
   - id: "build image"
-    name: docker
+    name: gcr.io/cloud-builders/docker
     entrypoint: sh
     args: ['-c',
            'docker build --build-arg=latency="$(cat /random-numbers/latency.dat)" --build-arg=randomColorFloat="$(cat /random-numbers/randomColorFloat.dat)" --build-arg=errorrate="$(cat /random-numbers/errorrate.dat)" -t testing .'
           ]
   - id: "test image"
-    name: docker
+    name: gcr.io/cloud-builders/docker
     args:
     - run
     - testing
