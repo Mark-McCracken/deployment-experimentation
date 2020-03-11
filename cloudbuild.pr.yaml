@@ -1,13 +1,8 @@
 steps:
-  - id: "generate random latency value"
-    name: ubuntu
-    args: ["perl", "-e", "'print int(rand(1500)'", ">", "/random-numbers/latency.dat"]
-  - id: "generate random color value"
-    name: ubuntu
-    args: ["perl", "-e", "'print rand(1)'", ">", "/random-numbers/randomColorFloat.dat"]
-  - id: "generate random errorrate value"
-    name: ubuntu
-    args: ["perl", "-e", "'print rand(0.45)'", ">", "/random-numbers/errorrate.dat"]
+  - id: "generate random values"
+    name: python
+    entrypoint: python
+    args: ["generate-random-numbers.py"]
   - id: "build image"
     name: docker
     entrypoint: sh
