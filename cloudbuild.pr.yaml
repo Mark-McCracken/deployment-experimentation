@@ -10,12 +10,14 @@ steps:
     args: ["perl", "-e", "'print rand(0.45)'", ">", "/random-numbers/errorrate.dat", "&&", "cat", "/random-numbers/errorrate.dat"]
   - id: "build image"
     name: docker
-    args: ["build",
-            "--build-arg=latency=$(cat /random-numbers/latency.dat)",
-            "--build-arg=randomColorFloat=$(cat /random-numbers/randomColorFloat.dat)",
-            "--build-arg=errorrate=$(cat /random-numbers/errorrate.dat)", 
-            "-t", "testing",
-            "."
+    entrypoint: sh
+    args: ["-c",
+           "build",
+           "--build-arg=latency=$(cat /random-numbers/latency.dat)",
+           "--build-arg=randomColorFloat=$(cat /random-numbers/randomColorFloat.dat)",
+           "--build-arg=errorrate=$(cat /random-numbers/errorrate.dat)", 
+           "-t", "testing",
+           "."
           ]
   - id: "test image"
     name: docker
