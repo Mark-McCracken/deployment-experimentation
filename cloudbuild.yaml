@@ -1,0 +1,20 @@
+steps:
+  - name: ubuntu
+    args: ["perl", "-e", "'print int(rand(1400)'", ">", "/random-numbers/latency.dat"]
+  - name: ubuntu
+    args: ["perl", "-e", "'print rand(1)'", ">", "/random-numbers/randomColorFloat.dat"]
+  - name: ubuntu
+    args: ["perl", "-e", "'print rand(0.45)'", ">", "/random-numbers/errorrate.dat"]
+  - name: docker
+    args: ["build",
+            "--build-arg=latency=$(cat /random-numbers/latency.dat)",
+            "--build-arg=randomColorFloat=$(cat /random-numbers/randomColorFloat.dat)",
+            "--build-arg=errorrate=$(cat /random-numbers/errorrate.dat)", 
+            "-t", "gcr.io/$PROJECT_ID/deployment-experiment:$SHORT_SHA"
+          ]
+images:
+- gcr.io/$PROJECT_ID/deployment-experiment:$SHORT_SHA
+options:
+  volumes:
+  - name: "random-numbers"
+    path: "/random-numbers"
