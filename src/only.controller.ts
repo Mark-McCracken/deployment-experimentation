@@ -26,13 +26,14 @@ export class OnlyController {
             body {
                 background-color: ${this.pageColor}
             }
-            h1 {
+            h1, h2 {
                 text-align: center;
             }
         </style>
     </head>
     <body>
-        <h1>${process.env["HOSTNAME"]}</h1>
+        <h1>Host: ${process.env["HOSTNAME"]}</h1>
+        <h2>Version: ${process.env["version"]}</h2>
     </body>
     `;
   }

@@ -22,3 +22,5 @@ ARG randomColorFloat
 ENV randomColorFloat=$randomColorFloat
 ARG errorrate
 ENV errorrate=$errorrate
+ARG version
+ENV version=$version

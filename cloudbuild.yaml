@@ -7,7 +7,7 @@ steps:
     name: gcr.io/cloud-builders/docker
     entrypoint: sh
     args: ['-c',
-           'docker build --build-arg=latency="$(cat /random-numbers/latency.dat)" --build-arg=randomColorFloat="$(cat /random-numbers/randomColorFloat.dat)" --build-arg=errorrate="$(cat /random-numbers/errorrate.dat)" -t gcr.io/$PROJECT_ID/deployment-experiment:$SHORT_SHA .'
+           'docker build --build-arg=latency="$(cat /random-numbers/latency.dat)" --build-arg=version=$SHORT_SHA --build-arg=randomColorFloat="$(cat /random-numbers/randomColorFloat.dat)" --build-arg=errorrate="$(cat /random-numbers/errorrate.dat)" -t gcr.io/$PROJECT_ID/deployment-experiment:$SHORT_SHA .'
           ]
 images:
 - gcr.io/$PROJECT_ID/deployment-experiment:$SHORT_SHA
