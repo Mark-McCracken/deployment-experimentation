@@ -1,11 +1,15 @@
 steps:
-  - name: ubuntu
-    args: ["perl", "-e", "'print int(rand(1400)'", ">", "/random-numbers/latency.dat", "&&", "cat", "/random-numbers/latency.dat"]
-  - name: ubuntu
+  - id: "generate random latency value"
+    name: ubuntu
+    args: ["perl", "-e", "'print int(rand(1500)'", ">", "/random-numbers/latency.dat", "&&", "cat", "/random-numbers/latency.dat"]
+  - id: "generate random color value"
+    name: ubuntu
     args: ["perl", "-e", "'print rand(1)'", ">", "/random-numbers/randomColorFloat.dat", "&&", "cat", "/random-numbers/randomColorFloat.dat"]
-  - name: ubuntu
+  - id: "generate random errorrate value"
+    name: ubuntu
     args: ["perl", "-e", "'print rand(0.45)'", ">", "/random-numbers/errorrate.dat", "&&", "cat", "/random-numbers/errorrate.dat"]
-  - name: docker
+  - id: "build image"
+    name: docker
     args: ["build",
             "--build-arg=latency=$(cat /random-numbers/latency.dat)",
             "--build-arg=randomColorFloat=$(cat /random-numbers/randomColorFloat.dat)",
@@ -13,7 +17,8 @@ steps:
             "-t", "testing",
             "."
           ]
-  - name: docker
+  - id: "test image"
+    name: docker
     args:
     - run
     - testing
