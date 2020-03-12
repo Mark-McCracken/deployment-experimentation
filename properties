@@ -1,0 +1,6 @@
+export HOSTNAME=local
+export version=dev
+export randomColorFloat=0.454616
+export ENVIRONMENT_TYPE=dev
+export errorrate=0.32
+export latency=1544
