@@ -1,0 +1,134 @@
+{
+    "id": "4305e1e9-6ff8-4bfb-9417-c0c4b48b0617",
+    "projectId": "lsm-data-infra",
+    "status": "SUCCESS",
+    "source": {
+        "storageSource": {
+            "bucket": "716037808007.cloudbuild-source.googleusercontent.com",
+            "object": "555248bbd597a4439bb9e9fe826801a1d971499e-1e464dc1-cdbc-4c7d-8cda-08d623677b9c.tar.gz"
+        }
+    },
+    "steps": [
+        {
+            "name": "python",
+            "args": [
+                "generate-random-numbers.py"
+            ],
+            "id": "generate random values",
+            "entrypoint": "python",
+            "timing": {
+                "startTime": "2020-03-11T21:18:36.138108464Z",
+                "endTime": "2020-03-11T21:19:05.463071776Z"
+            },
+            "pullTiming": {
+                "startTime": "2020-03-11T21:18:36.138108464Z",
+                "endTime": "2020-03-11T21:19:04.688833944Z"
+            },
+            "status": "SUCCESS"
+        },
+        {
+            "name": "gcr.io/cloud-builders/docker",
+            "args": [
+                "-c",
+                "docker build --build-arg=latency=\"$(cat /random-numbers/latency.dat)\" --build-arg=version=555248b --build-arg=randomColorFloat=\"$(cat /random-numbers/randomColorFloat.dat)\" --build-arg=errorrate=\"$(cat /random-numbers/errorrate.dat)\" -t gcr.io/lsm-data-infra/deployment-experiment:555248b ."
+            ],
+            "id": "build image",
+            "entrypoint": "sh",
+            "timing": {
+                "startTime": "2020-03-11T21:19:05.463154114Z",
+                "endTime": "2020-03-11T21:20:27.155934974Z"
+            },
+            "pullTiming": {
+                "startTime": "2020-03-11T21:19:05.463154114Z",
+                "endTime": "2020-03-11T21:19:05.466971935Z"
+            },
+            "status": "SUCCESS"
+        }
+    ],
+    "results": {
+        "images": [
+            {
+                "name": "gcr.io/lsm-data-infra/deployment-experiment:555248b",
+                "digest": "sha256:ded8e3dea0de487dbe2a23bf789f86667201bf18d7d293782e288d0b984e11da",
+                "pushTiming": {
+                    "startTime": "2020-03-11T21:20:27.377311890Z",
+                    "endTime": "2020-03-11T21:20:38.978348956Z"
+                }
+            }
+        ],
+        "buildStepImages": [
+            "",
+            "sha256:019a61185e46aa179ba5884332bda38398702903538cc1ff5be4518eb039c87e"
+        ],
+        "buildStepOutputs": [
+            "",
+            ""
+        ]
+    },
+    "createTime": "2020-03-11T21:18:25.550907819Z",
+    "startTime": "2020-03-11T21:18:26.555306944Z",
+    "finishTime": "2020-03-11T21:20:39.780637Z",
+    "timeout": "600s",
+    "images": [
+        "gcr.io/lsm-data-infra/deployment-experiment:555248b"
+    ],
+    "artifacts": {
+        "images": [
+            "gcr.io/lsm-data-infra/deployment-experiment:555248b"
+        ]
+    },
+    "logsBucket": "gs://716037808007.cloudbuild-logs.googleusercontent.com",
+    "sourceProvenance": {
+        "resolvedStorageSource": {
+            "bucket": "716037808007.cloudbuild-source.googleusercontent.com",
+            "object": "555248bbd597a4439bb9e9fe826801a1d971499e-1e464dc1-cdbc-4c7d-8cda-08d623677b9c.tar.gz",
+            "generation": "1583961505408788"
+        },
+        "fileHashes": {
+            "gs://716037808007.cloudbuild-source.googleusercontent.com/555248bbd597a4439bb9e9fe826801a1d971499e-1e464dc1-cdbc-4c7d-8cda-08d623677b9c.tar.gz#1583961505408788": {
+                "fileHash": [
+                    {
+                        "type": "MD5",
+                        "value": "4HNyU+K85Gj2OMgi3+2NlQ=="
+                    }
+                ]
+            }
+        }
+    },
+    "buildTriggerId": "bc9808d1-05f6-4309-b9c5-6032bb15680e",
+    "options": {
+        "substitutionOption": "ALLOW_LOOSE",
+        "logging": "LEGACY",
+        "volumes": [
+            {
+                "name": "random-numbers",
+                "path": "/random-numbers"
+            }
+        ]
+    },
+    "logUrl": "https://console.cloud.google.com/gcr/builds/4305e1e9-6ff8-4bfb-9417-c0c4b48b0617?project=716037808007",
+    "substitutions": {
+        "BRANCH_NAME": "master",
+        "COMMIT_SHA": "555248bbd597a4439bb9e9fe826801a1d971499e",
+        "REPO_NAME": "deployment-experimentation",
+        "REVISION_ID": "555248bbd597a4439bb9e9fe826801a1d971499e",
+        "SHORT_SHA": "555248b"
+    },
+    "tags": [
+        "trigger-bc9808d1-05f6-4309-b9c5-6032bb15680e"
+    ],
+    "timing": {
+        "BUILD": {
+            "startTime": "2020-03-11T21:18:35.360772584Z",
+            "endTime": "2020-03-11T21:20:27.377252218Z"
+        },
+        "FETCHSOURCE": {
+            "startTime": "2020-03-11T21:18:31.288056418Z",
+            "endTime": "2020-03-11T21:18:35.360720419Z"
+        },
+        "PUSH": {
+            "startTime": "2020-03-11T21:20:27.377311192Z",
+            "endTime": "2020-03-11T21:20:38.978395592Z"
+        }
+    }
+}

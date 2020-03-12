@@ -34,6 +34,7 @@ export class OnlyController {
     <body>
         <h1>Host: ${process.env["HOSTNAME"]}</h1>
         <h2>Version: ${process.env["version"]}</h2>
+        <h2>Environment Type: ${process.env["ENVIRONMENT_TYPE"]}</h2>
     </body>
     `;
   }
@@ -41,6 +42,19 @@ export class OnlyController {
   @Get('health')
   healthCheck() {
     return {"status": "ok"};
+  }
+
+  @Get('version')
+  version() {
+    return {
+      hostname: process.env["HOSTNAME"],
+      version: process.env["version"],
+      randomColorFloat: parseInt(process.env["randomColorFloat"]),
+      randomColor: this.pageColor,
+      envType: process.env["ENVIRONMENT_TYPE"],
+      errorRate: parseInt(process.env["errorrate"]),
+      latency: parseInt(process.env["latency"])
+    }
   }
 
   @Get('latency')

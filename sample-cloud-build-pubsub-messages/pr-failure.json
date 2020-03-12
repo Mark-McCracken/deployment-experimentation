@@ -1,0 +1,138 @@
+{
+    "id": "4c125130-be5b-452b-812e-7b0ae7b17cd5",
+    "projectId": "lsm-data-infra",
+    "status": "FAILURE",
+    "source": {
+        "storageSource": {
+            "bucket": "716037808007.cloudbuild-source.googleusercontent.com",
+            "object": "a54343861e9c13bd48100f7d95d2d2f8c8c8048d-109e26d4-ff26-4216-b877-c42e3fbbb97c.tar.gz"
+        }
+    },
+    "steps": [
+        {
+            "name": "python",
+            "args": [
+                "generate-random-numbers.py"
+            ],
+            "id": "generate random values",
+            "entrypoint": "python",
+            "timing": {
+                "startTime": "2020-03-11T21:08:19.603363933Z",
+                "endTime": "2020-03-11T21:08:48.743275404Z"
+            },
+            "pullTiming": {
+                "startTime": "2020-03-11T21:08:19.603363933Z",
+                "endTime": "2020-03-11T21:08:47.974825599Z"
+            },
+            "status": "SUCCESS"
+        },
+        {
+            "name": "gcr.io/cloud-builders/docker",
+            "args": [
+                "-c",
+                "docker build --build-arg=latency=\"$(cat /random-numbers/latency.dat)\" --build-arg=version=a543438 --build-arg=randomColorFloat=\"$(cat /random-numbers/randomColorFloat.dat)\" --build-arg=errorrate=\"$(cat /random-numbers/errorrate.dat)\" -t testing ."
+            ],
+            "id": "build image",
+            "entrypoint": "sh",
+            "timing": {
+                "startTime": "2020-03-11T21:08:48.743345258Z",
+                "endTime": "2020-03-11T21:10:10.157001327Z"
+            },
+            "pullTiming": {
+                "startTime": "2020-03-11T21:08:48.743345258Z",
+                "endTime": "2020-03-11T21:08:48.745781918Z"
+            },
+            "status": "SUCCESS"
+        },
+        {
+            "name": "gcr.io/cloud-builders/docker",
+            "args": [
+                "run",
+                "testing",
+                "npm",
+                "run",
+                "test"
+            ],
+            "id": "test image",
+            "timing": {
+                "startTime": "2020-03-11T21:10:10.157179565Z",
+                "endTime": "2020-03-11T21:10:16.472098798Z"
+            },
+            "pullTiming": {
+                "startTime": "2020-03-11T21:10:10.157179565Z",
+                "endTime": "2020-03-11T21:10:10.161534984Z"
+            },
+            "status": "FAILURE"
+        }
+    ],
+    "results": {
+        "buildStepImages": [
+            "",
+            "sha256:019a61185e46aa179ba5884332bda38398702903538cc1ff5be4518eb039c87e",
+            "sha256:019a61185e46aa179ba5884332bda38398702903538cc1ff5be4518eb039c87e"
+        ],
+        "buildStepOutputs": [
+            "",
+            "",
+            ""
+        ]
+    },
+    "createTime": "2020-03-11T21:08:12.182345329Z",
+    "startTime": "2020-03-11T21:08:14.082859688Z",
+    "finishTime": "2020-03-11T21:10:17.464733210Z",
+    "timeout": "600s",
+    "logsBucket": "gs://716037808007.cloudbuild-logs.googleusercontent.com",
+    "sourceProvenance": {
+        "resolvedStorageSource": {
+            "bucket": "716037808007.cloudbuild-source.googleusercontent.com",
+            "object": "a54343861e9c13bd48100f7d95d2d2f8c8c8048d-109e26d4-ff26-4216-b877-c42e3fbbb97c.tar.gz",
+            "generation": "1583960891913448"
+        },
+        "fileHashes": {
+            "gs://716037808007.cloudbuild-source.googleusercontent.com/a54343861e9c13bd48100f7d95d2d2f8c8c8048d-109e26d4-ff26-4216-b877-c42e3fbbb97c.tar.gz#1583960891913448": {
+                "fileHash": [
+                    {
+                        "type": "MD5",
+                        "value": "xHcfX3uYO7J6z1iExW3WKA=="
+                    }
+                ]
+            }
+        }
+    },
+    "buildTriggerId": "b7ee9e0a-8756-4ce5-a05f-ab73512648e3",
+    "options": {
+        "substitutionOption": "ALLOW_LOOSE",
+        "logging": "LEGACY",
+        "volumes": [
+            {
+                "name": "random-numbers",
+                "path": "/random-numbers"
+            }
+        ]
+    },
+    "logUrl": "https://console.cloud.google.com/cloud-build/builds/4c125130-be5b-452b-812e-7b0ae7b17cd5?project=716037808007",
+    "substitutions": {
+        "BRANCH_NAME": "test-pr-3",
+        "COMMIT_SHA": "a54343861e9c13bd48100f7d95d2d2f8c8c8048d",
+        "REPO_NAME": "deployment-experimentation",
+        "REVISION_ID": "a54343861e9c13bd48100f7d95d2d2f8c8c8048d",
+        "SHORT_SHA": "a543438",
+        "_BASE_BRANCH": "master",
+        "_HEAD_BRANCH": "test-pr-3",
+        "_HEAD_REPO_URL": "https://github.com/Mark-McCracken/deployment-experimentation",
+        "_PR_NUMBER": "3"
+    },
+    "tags": [
+        "trigger-b7ee9e0a-8756-4ce5-a05f-ab73512648e3"
+    ],
+    "timing": {
+        "BUILD": {
+            "startTime": "2020-03-11T21:08:18.712403204Z",
+            "endTime": "2020-03-11T21:10:16.477608942Z"
+        },
+        "FETCHSOURCE": {
+            "startTime": "2020-03-11T21:08:14.712896452Z",
+            "endTime": "2020-03-11T21:08:18.712340266Z"
+        }
+    }
+}

@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
       - name: frontend
-        image: gcr.io/lsm-data-infra/deployment-experiment:9716991
+        image: gcr.io/lsm-data-infra/deployment-experiment
         resources:
           limits:
             memory: "500Mi"
@@ -28,3 +28,6 @@ spec:
         ports:
         - name: frontend
           containerPort: 8080
+        env:
+        - name: ENVIRONMENT_TYPE
+          value: canary
