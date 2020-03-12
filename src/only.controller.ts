@@ -1,20 +1,23 @@
 import { Body, Controller, Get, Param, Post, UseGuards, InternalServerErrorException } from '@nestjs/common';
-
-function wait(ms: number): Promise<void> {
-  return new Promise(resolve => {
-      setTimeout(() => {
-        resolve();
-      }, ms);
-  });
-}
+import { InjectHistogramMetric, HistogramMetric } from '@digikare/nestjs-prom';
 
 @Controller()
 export class OnlyController {
   pageColor: string;
 
-  constructor() {
+  constructor(@InjectHistogramMetric('latency') private readonly latencyHistogram,
+              @InjectHistogramMetric('error_rate') private readonly errorRateHistogram) {
       const colors = ["red", "blue", "green", "dodgerblue", "pink", "yellow", "orange"];
       this.pageColor = colors[Math.floor(Math.sqrt(parseFloat(process.env["randomColorFloat"]) * Math.random()) * colors.length)]
+  }
+
+  wait(ms: number): Promise<void> {
+    this.latencyHistogram.observe(ms);
+    return new Promise(resolve => {
+        setTimeout(() => {
+          resolve();
+        }, ms);
+    });
   }
 
   @Get()
@@ -59,15 +62,21 @@ export class OnlyController {
 
   @Get('latency')
   async getLatencyEndpoint() {
-    await wait(parseInt(process.env["latency"]) * 3 * Math.sqrt(Math.random()));
-    return {"status": "ok"};
+    const staticLatency: number = parseInt(process.env["latency"]);
+    const realLatency: number = Math.floor(staticLatency * 3 * Math.sqrt(Math.random()));
+    await this.wait(realLatency);
+    return { status: "ok", staticLatency, realLatency };
   }
 
   @Get('errors')
   getErrorsEndpoint() {
    const errorRate = parseFloat(process.env["errorrate"]);
    const successful = Math.random() > errorRate;
-   if (!successful) throw new InternalServerErrorException("Unlucky, punk");
+   if (!successful) {
+     this.errorRateHistogram.observe(1);
+     throw new InternalServerErrorException("Unlucky, punk");
+   }
+   this.errorRateHistogram.observe(0);
    return {"status": "ok"};
   }
 
