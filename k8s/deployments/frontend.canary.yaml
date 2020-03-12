@@ -13,7 +13,7 @@ spec:
         role: frontend
         env: canary
       annotations:
-        prometheus.io/scrape: true
+        prometheus.io/scrape: "true"
     spec:
       containers:
       - name: frontend
