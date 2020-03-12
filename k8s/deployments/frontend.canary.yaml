@@ -12,6 +12,8 @@ spec:
         app: sample
         role: frontend
         env: canary
+      annotations:
+        prometheus.io/scrape: true
     spec:
       containers:
       - name: frontend

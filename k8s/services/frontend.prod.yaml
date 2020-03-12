@@ -3,6 +3,8 @@ kind: Service
 metadata:
   labels:
     app: frontend-prod
+  annotations:
+    prometheus.io/scrape: "true"
   name: frontend-prod
   namespace: deployment-experiment
 spec:
