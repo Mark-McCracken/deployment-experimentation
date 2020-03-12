@@ -31,3 +31,5 @@ spec:
         env:
         - name: ENVIRONMENT_TYPE
           value: prod
+        - name: NODE_ENV
+          value: production

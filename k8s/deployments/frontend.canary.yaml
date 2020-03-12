@@ -33,3 +33,5 @@ spec:
         env:
         - name: ENVIRONMENT_TYPE
           value: canary
+        - name: NODE_ENV
+          value: production
